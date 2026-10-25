@@ -12,3 +12,5 @@ title = "Mr. Rizzo"
 
 [params.author]
   name = "Mr. Rizzo"
+  image = "img/avatar.jpg"
+  headline = "Systems · AI · 3D"
