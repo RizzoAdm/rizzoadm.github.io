@@ -1,0 +1,35 @@
+[[main]]
+  identifier = "about"
+  name = "Sobre"
+  pageRef = "about"
+  weight = 10
+
+[[main]]
+  identifier = "experience"
+  name = "Experiência"
+  pageRef = "experience"
+  weight = 20
+
+[[main]]
+  identifier = "skills"
+  name = "Habilidades"
+  pageRef = "skills"
+  weight = 30
+
+[[main]]
+  identifier = "projects"
+  name = "Projetos"
+  pageRef = "projects"
+  weight = 40
+
+[[main]]
+  identifier = "hobbies"
+  name = "Hobbies"
+  pageRef = "hobbies"
+  weight = 50
+
+[[main]]
+  identifier = "contact"
+  name = "Contato"
+  pageRef = "contact"
+  weight = 60

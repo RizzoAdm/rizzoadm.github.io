@@ -1,0 +1,36 @@
+/* Mr. Rizzo alt — navy + sky blue + ice cyan */
+:root {
+  --color-neutral: 246, 249, 255;
+  --color-neutral-50: 246, 249, 255;
+  --color-neutral-100: 232, 239, 252;
+  --color-neutral-200: 204, 217, 242;
+  --color-neutral-300: 160, 182, 222;
+  --color-neutral-400: 110, 136, 186;
+  --color-neutral-500: 70, 96, 148;
+  --color-neutral-600: 42, 64, 112;
+  --color-neutral-700: 24, 42, 82;
+  --color-neutral-800: 12, 25, 56;
+  --color-neutral-900: 6, 14, 34;
+
+  --color-primary-50: 236, 246, 255;
+  --color-primary-100: 208, 233, 255;
+  --color-primary-200: 166, 212, 255;
+  --color-primary-300: 116, 186, 255;
+  --color-primary-400: 72, 160, 250;
+  --color-primary-500: 40, 132, 238;
+  --color-primary-600: 24, 106, 212;
+  --color-primary-700: 20, 84, 172;
+  --color-primary-800: 20, 68, 138;
+  --color-primary-900: 18, 56, 110;
+
+  --color-secondary-50: 236, 253, 255;
+  --color-secondary-100: 204, 248, 254;
+  --color-secondary-200: 160, 240, 252;
+  --color-secondary-300: 103, 226, 248;
+  --color-secondary-400: 52, 206, 238;
+  --color-secondary-500: 20, 180, 216;
+  --color-secondary-600: 12, 146, 180;
+  --color-secondary-700: 14, 116, 144;
+  --color-secondary-800: 18, 94, 116;
+  --color-secondary-900: 20, 78, 96;
+}

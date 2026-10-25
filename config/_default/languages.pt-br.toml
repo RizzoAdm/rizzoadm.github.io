@@ -1,0 +1,14 @@
+disabled = false
+languageCode = "pt-br"
+languageName = "Português (Brasil)"
+weight = 2
+title = "Mr. Rizzo"
+
+[params]
+  displayName = "PT"
+  isoCode = "pt-br"
+  rtl = false
+  dateFormat = "02/01/2006"
+
+[params.author]
+  name = "Mr. Rizzo"
