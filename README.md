@@ -33,6 +33,7 @@ Then open http://localhost:1313.
 | Folder | Purpose |
 |---|---|
 | `config/_default/` | Site configuration (languages, menus, theme parameters) |
+| `assets/`          | Images and custom color schemes processed by Hugo       |
 | `content/` | Pages and posts |
 | `static/` | Files served as-is |
 | `themes/blowfish/` | Theme (submodule) |
