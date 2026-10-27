@@ -14,3 +14,6 @@ title = "Mr. Rizzo"
   name = "Mr. Rizzo"
   image = "img/avatar.jpg"
   headline = "Systems, AI and 3D"
+  links = [
+  { linkedin = "https://www.linkedin.com/in/rizzo-admin/" },
+]

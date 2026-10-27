@@ -33,3 +33,8 @@
   name = "Contact"
   pageRef = "contact"
   weight = 60
+
+[[footer]]
+  name = "LinkedIn"
+  url = "https://www.linkedin.com/in/rizzo-admin/"
+  weight = 10
