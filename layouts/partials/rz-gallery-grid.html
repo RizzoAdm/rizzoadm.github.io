@@ -1,0 +1,58 @@
+{{- /* Internal: builds an image grid. Called by the rz-gallery and rz-feature shortcodes.
+       Expects a dict: page, dir, cols, colsSm, ratio, slots, from, count, zoom, wide,
+       vimeo, hash, youtube, vtitle (optional video tile at the end), class */ -}}
+{{- $page := .page -}}
+{{- $dir := .dir | default "gallery" -}}
+{{- $cols := int (.cols | default 3) -}}
+{{- $colsSm := int (.colsSm | default 1) -}}
+{{- $ratio := .ratio | default "16x9" -}}
+{{- $slots := int (.slots | default 0) -}}
+{{- $from := int (.from | default 1) -}}
+{{- $count := int (.count | default 0) -}}
+{{- $zoom := .zoom -}}
+{{- $auto := eq $ratio "auto" -}}
+{{- $colsMd := cond (gt $cols 2) 2 $cols -}}
+
+{{- $rw := 16 -}}{{- $rh := 9 -}}
+{{- if not $auto -}}
+  {{- $parts := split $ratio "x" -}}
+  {{- $rw = int (index $parts 0) -}}
+  {{- $rh = int (index $parts 1) -}}
+{{- end -}}
+{{- $imgW := cond (eq $cols 1) 2000 (cond (eq $cols 2) 1200 900) -}}
+{{- $imgH := div (mul $imgW $rh) $rw -}}
+
+{{- $all := sort ($page.Resources.Match (printf "%s/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}" $dir)) "Name" -}}
+{{- $images := after (sub $from 1) $all -}}
+{{- $total := 0 -}}
+{{- if gt $count 0 -}}
+  {{- $images = first $count $images -}}
+  {{- $total = $count -}}
+{{- else -}}
+  {{- $total = cond (gt $slots (len $images)) $slots (len $images) -}}
+{{- end -}}
+
+<div class="rz-gallery {{ if $auto }}rz-auto{{ else }}rz-fixed{{ end }}{{ if $zoom }} rz-zoom{{ end }}{{ if .wide }} rz-wide{{ end }} {{ .class }}"
+     style="--rz-c: {{ $cols }}; --rz-c-md: {{ $colsMd }}; --rz-c-sm: {{ $colsSm }}; --rz-ratio: {{ $rw }} / {{ $rh }};">
+  {{- range $i, $img := $images }}
+    {{- $shown := cond $auto ($img.Resize (printf "%dx webp q85" (cond (gt $img.Width $imgW) $imgW $img.Width))) ($img.Fill (printf "%dx%d webp q82 Center" $imgW $imgH)) -}}
+    <figure class="rz-item">
+      <img src="{{ $shown.RelPermalink }}"
+           class="nozoom{{ if $zoom }} rz-lb{{ end }}"
+           {{- if $zoom }} data-full="{{ ($img.Fit "2400x2400 webp q88").RelPermalink }}"{{ end }}
+           width="{{ $shown.Width }}" height="{{ $shown.Height }}"
+           alt="{{ $page.Title }} — {{ add $i $from }}"
+           loading="{{ if lt $i 2 }}eager{{ else }}lazy{{ end }}" decoding="async">
+    </figure>
+  {{- end }}
+  {{- if gt $total (len $images) }}
+    {{- range $n := seq (add (len $images) $from) (sub (add $from $total) 1) }}
+    <div class="rz-item rz-placeholder" aria-hidden="true">{{ printf "%s/%02d.jpg" $dir $n }}</div>
+    {{- end }}
+  {{- end }}
+  {{- if or .vimeo .youtube }}
+    <div class="rz-item rz-vtile">
+      {{- partial "rz-video-embed.html" (dict "page" $page "vimeo" .vimeo "hash" .hash "youtube" .youtube "title" .vtitle "ratio" $ratio) -}}
+    </div>
+  {{- end }}
+</div>

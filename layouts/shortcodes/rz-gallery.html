@@ -1,0 +1,30 @@
+{{- /*
+  rz-gallery: image grid with equal spacing.
+
+  Grid (cropped thumbnails, click opens the whole image):
+    {{< rz-gallery dir="gallery" cols="3" ratio="1x1" wide="true" >}}
+  One image per row, original shape, no click:
+    {{< rz-gallery dir="gallery" cols="1" ratio="auto" zoom="false" wide="true" >}}
+  Only images 05 and 06, plus a video as the last tile:
+    {{< rz-gallery from="5" count="2" cols="3" ratio="1x1" vimeo="ID" hash="HASH" title="Timelapse" >}}
+
+  dir    folder inside the page bundle with the images (default "gallery")
+  cols   columns on desktop (default 3). Tablet: max 2. Phone: 1.
+  ratio  shape of every tile, width x height (default "16x9"), cropped to fit.
+         "auto" = keep each image's original shape (no crop).
+  slots  minimum number of spaces. Empty spaces show the file name expected there.
+  from   first image to show (default 1).  count = how many images from there.
+  zoom   "false" = no click-to-enlarge (default "true").
+  wide   "true" = use the full page width instead of the text width.
+  vimeo / hash / youtube / title = optional video tile at the end (same shape as the images).
+
+  Images are shown in file-name order (01.jpg, 02.jpg ...).
+*/ -}}
+{{- partial "rz-media-css.html" .Page -}}
+{{- $truthy := slice "true" "1" "yes" -}}
+{{- partial "rz-gallery-grid.html" (dict
+      "page" .Page "dir" (.Get "dir") "cols" (.Get "cols") "ratio" (.Get "ratio")
+      "slots" (.Get "slots") "from" (.Get "from") "count" (.Get "count")
+      "zoom" (in $truthy (lower (.Get "zoom" | default "true")))
+      "wide" (in $truthy (lower (.Get "wide" | default "false")))
+      "vimeo" (.Get "vimeo") "hash" (.Get "hash") "youtube" (.Get "youtube") "vtitle" (.Get "title")) -}}

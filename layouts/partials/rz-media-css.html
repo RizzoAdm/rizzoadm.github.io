@@ -1,0 +1,98 @@
+{{- /* CSS + lightbox script shared by the rz-gallery, rz-video and rz-feature shortcodes. Printed by every shortcode call (repeating it is harmless; a "print once" guard broke on hugo server reloads). */ -}}
+<style>
+  /* Wide mode: the page content uses the full page width, but plain text stays at a readable width */
+  .article-content:has(.rz-wide) { max-width: none; }
+  div:has(> .article-content .rz-wide) { max-width: none; width: 100%; }
+  .article-content:has(.rz-wide) > :not(.rz-wide) { max-width: 65ch; }
+
+  /* Gallery */
+  .rz-gallery {
+    display: grid;
+    gap: var(--rz-gap, 0.75rem);
+    grid-template-columns: repeat(var(--rz-c), minmax(0, 1fr));
+    margin: 2rem 0;
+  }
+  @media (max-width: 1023px) { .rz-gallery { grid-template-columns: repeat(var(--rz-c-md), minmax(0, 1fr)); } }
+  @media (max-width: 639px)  { .rz-gallery { grid-template-columns: repeat(var(--rz-c-sm), minmax(0, 1fr)); } }
+
+  .rz-item {
+    margin: 0 !important;
+    overflow: hidden;
+    border-radius: 0.375rem;
+    background: rgba(127, 127, 127, 0.08);
+  }
+  .rz-fixed .rz-item { aspect-ratio: var(--rz-ratio); }
+  .rz-item img { margin: 0 !important; width: 100%; display: block; }
+  .rz-fixed .rz-item img { height: 100%; object-fit: cover; }
+  .rz-auto .rz-item img { height: auto; }
+  .rz-zoom .rz-item img { transition: transform 0.3s ease; }
+  .rz-zoom .rz-item:hover img { transform: scale(1.03); }
+
+  .rz-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed rgba(127, 127, 127, 0.45);
+    color: rgba(127, 127, 127, 0.9);
+    font-size: 0.875rem;
+    letter-spacing: 0.08em;
+  }
+  .rz-auto .rz-placeholder { aspect-ratio: 16 / 9; }
+
+  /* Video */
+  .rz-video {
+    position: relative;
+    width: 100%;
+    aspect-ratio: var(--rz-vratio, 16 / 9);
+    max-width: var(--rz-vmax, none);
+    margin: 2rem auto;
+    overflow: hidden;
+    border-radius: 0.375rem;
+    background: #000;
+  }
+  .rz-video.rz-placeholder { background: rgba(127, 127, 127, 0.08); }
+  .rz-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+  /* Video as a tile inside a gallery */
+  .rz-vtile { position: relative; }
+  .rz-vtile .rz-video { position: absolute; inset: 0; margin: 0; aspect-ratio: auto; border-radius: 0; }
+
+  /* Feature: video on the left, 2x2 images on the right, same height */
+  .rz-feature { display: grid; gap: 0.75rem; margin: 1.5rem 0 0.75rem; }
+  .rz-feature .rz-video { margin: 0; }
+  .rz-feature .rz-gallery { margin: 0; }
+  @media (min-width: 768px) {
+    /* column widths chosen so the 2x2 square grid is exactly as tall as the video */
+    .rz-feature { grid-template-columns: var(--rz-fcols); align-items: stretch; }
+    .rz-feature .rz-feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); height: 100%; }
+    .rz-feature .rz-feature-grid .rz-item { aspect-ratio: auto; position: relative; }
+    .rz-feature .rz-feature-grid .rz-item img { position: absolute; inset: 0; }
+  }
+  .rz-feature + .rz-gallery { margin-top: 0; }
+
+  /* Lightbox: shows the whole image in its original shape */
+  .rz-lb { cursor: zoom-in; }
+  dialog.rz-lightbox { position: fixed; inset: 0; margin: auto; padding: 0; width: fit-content; height: fit-content; border: 0; background: transparent; max-width: 96vw; max-height: 96vh; overflow: visible; }
+  dialog.rz-lightbox::backdrop { background: rgba(0, 0, 0, 0.88); }
+  dialog.rz-lightbox img { display: block; max-width: 96vw; max-height: 96vh; width: auto; height: auto; object-fit: contain; margin: 0 !important; border: 0; border-radius: 0.25rem; cursor: zoom-out; }
+</style>
+<script>
+  if (!window.rzLightbox) { window.rzLightbox = true;
+  document.addEventListener("DOMContentLoaded", function () {
+    var dlg = document.createElement("dialog");
+    dlg.className = "rz-lightbox";
+    var big = document.createElement("img");
+    dlg.appendChild(big);
+    document.body.appendChild(dlg);
+    dlg.addEventListener("click", function () { dlg.close(); });
+    document.querySelectorAll("img.rz-lb").forEach(function (img) {
+      img.addEventListener("click", function () {
+        big.src = img.dataset.full;
+        big.alt = img.alt;
+        dlg.showModal();
+      });
+    });
+  });
+  }
+</script>
+

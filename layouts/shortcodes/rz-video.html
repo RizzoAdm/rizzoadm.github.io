@@ -1,0 +1,18 @@
+{{- /*
+  rz-video: responsive video from Vimeo or YouTube (nothing is stored in the repository).
+
+  Vimeo:   {{< rz-video vimeo="1240101454" hash="6a315bf987" ratio="1x1" maxw="720px" title="Timelapse" >}}
+           (hash = the value after "?h=" in the Vimeo embed code)
+  YouTube: {{< rz-video youtube="VIDEO_ID" title="Timelapse" >}}
+  Empty:   {{< rz-video title="Timelapse" >}}  -> shows a placeholder until a video is added
+
+  ratio  shape of the video, width x height (default "16x9"; Instagram feed = "4x5"; square = "1x1")
+  maxw   maximum width, centered (e.g. "720px"). Default: full available width.
+  wide   "true" = use the full page width instead of the text width.
+*/ -}}
+{{- partial "rz-media-css.html" .Page -}}
+{{- partial "rz-video-embed.html" (dict
+      "page" .Page
+      "vimeo" (.Get "vimeo") "hash" (.Get "hash") "youtube" (.Get "youtube")
+      "title" (.Get "title") "ratio" (.Get "ratio") "maxw" (.Get "maxw")
+      "wide" (in (slice "true" "1" "yes") (lower (.Get "wide" | default "false")))) -}}

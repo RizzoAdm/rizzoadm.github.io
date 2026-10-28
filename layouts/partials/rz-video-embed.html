@@ -1,0 +1,26 @@
+{{- /* Internal: builds the video player. Called by rz-video and rz-split.
+       Expects a dict: page, vimeo, hash, youtube, title, ratio ("16x9", "4x5", "1x1"...), maxw, wide */ -}}
+{{- $vimeo := .vimeo -}}
+{{- $youtube := .youtube -}}
+{{- $title := .title | default .page.Title -}}
+{{- $ratio := .ratio | default "16x9" -}}
+{{- $parts := split $ratio "x" -}}
+{{- $style := printf "--rz-vratio: %s / %s;" (index $parts 0) (index $parts 1) -}}
+{{- with .maxw }}{{ $style = printf "%s --rz-vmax: %s;" $style . }}{{ end -}}
+{{- $src := "" -}}
+{{- if $vimeo -}}
+  {{- $src = printf "https://player.vimeo.com/video/%s?badge=0&autopause=0&player_id=0&app_id=58479&dnt=1" $vimeo -}}
+  {{- with .hash }}{{ $src = printf "%s&h=%s" $src . }}{{ end -}}
+{{- else if $youtube -}}
+  {{- $src = printf "https://www.youtube-nocookie.com/embed/%s?rel=0" $youtube -}}
+{{- end -}}
+{{- if $src }}
+<div class="rz-video{{ if .wide }} rz-wide{{ end }}" style="{{ $style | safeCSS }}">
+  <iframe src="{{ $src | safeURL }}" title="{{ $title }}" loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+          allowfullscreen></iframe>
+</div>
+{{- else }}
+<div class="rz-video rz-placeholder{{ if .wide }} rz-wide{{ end }}" style="{{ $style | safeCSS }}" aria-hidden="true">{{ $title }}</div>
+{{- end }}

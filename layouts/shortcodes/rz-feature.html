@@ -1,0 +1,23 @@
+{{- /*
+  rz-feature: video on the left + 4 images (2x2) on the right, same height. Full page width.
+  On phones the video comes first and the images below (2 per row).
+
+  {{< rz-feature vimeo="1240101455" hash="7e52709a38" ratio="4x5" title="Product animation" >}}
+
+  vimeo / hash / youtube / title = the video (hash = value after "?h=" in the Vimeo code)
+  ratio  video shape, width x height (default "4x5")
+  dir    image folder (default "gallery"); from = first image (default 1); count = 4
+*/ -}}
+{{- partial "rz-media-css.html" .Page -}}
+{{- $ratio := .Get "ratio" | default "4x5" -}}
+{{- $parts := split $ratio "x" -}}
+<div class="rz-feature rz-wide" style="--rz-fcols: minmax(0, {{ index $parts 0 }}fr) minmax(0, {{ index $parts 1 }}fr);">
+  <div class="rz-feature-video">
+    {{- partial "rz-video-embed.html" (dict
+          "page" .Page "vimeo" (.Get "vimeo") "hash" (.Get "hash") "youtube" (.Get "youtube")
+          "title" (.Get "title") "ratio" $ratio) -}}
+  </div>
+  {{- partial "rz-gallery-grid.html" (dict
+        "page" .Page "dir" (.Get "dir") "cols" 2 "colsSm" 2 "ratio" "1x1"
+        "from" (.Get "from" | default 1) "count" 4 "zoom" true "class" "rz-feature-grid") -}}
+</div>
