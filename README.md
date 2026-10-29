@@ -37,6 +37,7 @@ Then open http://localhost:1313.
 | `content/` | Pages and posts |
 | `static/` | Files served as-is |
 | `themes/blowfish/` | Theme (submodule) |
+| `docs/` | Project notes and progress log (not rendered) |
 
 ## Status
 
