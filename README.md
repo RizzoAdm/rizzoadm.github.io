@@ -33,11 +33,39 @@ Then open http://localhost:1313.
 | Folder | Purpose |
 |---|---|
 | `config/_default/` | Site configuration (languages, menus, theme parameters) |
-| `assets/`          | Images and custom color schemes processed by Hugo       |
-| `content/` | Pages and posts |
+| `assets/` | Images, custom color schemes and `css/custom.css` (site-wide CSS overrides) |
+| `content/` | Pages and posts. Each page is a bundle: `index.md` (EN) + `index.pt-br.md` (PT-BR) + images |
+| `content/projects/` | Projects, one folder per project |
+| `content/hobbies/` | Hobbies: photography, 3D for fun and cooking as gallery sections; cycling, homelab and swimming as pages |
+| `layouts/shortcodes/` | Custom `rz-*` shortcodes (see below) |
+| `layouts/partials/` | Partials used by the `rz-*` shortcodes (CSS, lightbox, gallery layout) |
+| `scripts/` | Helper scripts (image preparation) |
 | `static/` | Files served as-is |
 | `themes/blowfish/` | Theme (submodule) |
-| `docs/` | Project notes and progress log (not rendered) |
+| `docs/` | Project notes, progress log and manuals (not rendered) |
+
+## Custom shortcodes
+
+Usage is documented at the top of each file in `layouts/shortcodes/`.
+
+| Shortcode | What it does |
+|---|---|
+| `rz-photos` | Photo gallery in justified rows: original aspect ratio, no cropping, per-photo highlight levels (1–4) set in a `photos.yaml` file shared by both languages, optional subsets (`files`, `from`/`count`) and captions, click to enlarge |
+| `rz-gallery` | Image grid with fixed or original aspect ratio, optional placeholders, lightbox and video tile |
+| `rz-video` | Responsive Vimeo or YouTube embed (videos are not stored in the repository) |
+| `rz-feature` | Video next to a 2×2 image grid |
+
+## Images
+
+Every image goes through `scripts/prepare-images.sh` before being committed:
+
+```bash
+bash scripts/prepare-images.sh <source folder> <bundle>/gallery [start number]
+```
+
+It renames files in sequence (`01.jpg`, `02.jpg`, ...), strips **all** metadata (EXIF, GPS, camera, file paths), converts to sRGB JPEG (quality 88) and limits the longest side to 2560 px. Originals are never modified and are kept outside the repository.
+
+Step-by-step guide for adding galleries (in Portuguese): [`docs/manual-galerias.md`](docs/manual-galerias.md).
 
 ## Status
 

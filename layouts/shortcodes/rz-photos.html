@@ -5,6 +5,12 @@
   Basic (all photos in gallery/, file-name order, all normal size):
     {{< rz-photos >}}
 
+  Text between photos: use several blocks, each with its own photos:
+    Intro text...
+    {{< rz-photos files="01 02 03" >}}
+    More text...
+    {{< rz-photos from="4" count="5" >}}
+
   Highlights are set in ONE file inside the gallery folder, shared by EN and PT:
     <gallery bundle>/photos.yaml   (optional; see the example gallery)
 
@@ -25,6 +31,9 @@
     4  small: rows made only of level-4 photos are lower, so more photos fit
 
   Parameters (all optional):
+    files      only these photos, in this order: files="01 02 05" (names without .jpg also work)
+    from/count a slice of the gallery: from="4" count="3" = photos 4, 5 and 6 (in gallery order)
+    caption    text shown just below the photos, smaller and muted (Markdown allowed: *italic*, **bold**, [link](url))
     dir        folder with the photos inside the bundle (default "gallery")
     highlight  same as "highlight" in photos.yaml (overrides it; handy for quick tests)
     height     target row height in px on desktop (default 280; tablet and phone scale down)
@@ -74,7 +83,7 @@
     {{- end -}}
     {{- $name = path.Base $name -}}
     {{- $items = $items | append (dict "name" $name "level" $lvl) -}}
-    {{- $used = merge $used (dict $name true) -}}
+    {{- $used = merge $used (dict $name $lvl) -}}
   {{- end -}}
 {{- end -}}
 {{- range $all -}}
@@ -85,6 +94,26 @@
   {{- end -}}
 {{- end -}}
 
+{{- /* Optional selection: files="01 02 05" or from/count */ -}}
+{{- with .Get "files" -}}
+  {{- $sel := slice -}}
+  {{- range split (replace . "," " ") " " -}}
+    {{- with trim . " " -}}
+      {{- $stem := path.BaseName . -}}
+      {{- $found := false -}}
+      {{- range $items -}}{{- if and (not $found) (eq (path.BaseName .name) $stem) -}}{{- $sel = $sel | append . -}}{{- $found = true -}}{{- end -}}{{- end -}}
+      {{- if not $found -}}{{- $sel = $sel | append (dict "name" (cond (eq (path.Ext .) "") (printf "%s.jpg" .) .) "level" (index $hl $stem | default 3)) -}}{{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $items = $sel -}}
+{{- end -}}
+{{- $from := int (.Get "from" | default 1) -}}
+{{- $count := int (.Get "count" | default 0) -}}
+{{- if gt $from 1 }}{{ $items = after (sub $from 1) $items }}{{ end -}}
+{{- if gt $count 0 }}{{ $items = first $count $items }}{{ end -}}
+
+{{- $caption := .Get "caption" -}}
+<figure class="rz-photos-wrap{{ if $wide }} rz-wide{{ end }}">
 <div class="rz-photos{{ if $wide }} rz-wide{{ end }}" data-height="{{ $height }}">
   {{- range $i, $it := $items }}
     {{- $img := $page.Resources.GetMatch (printf "%s/%s" $dir $it.name) -}}
@@ -100,7 +129,7 @@
            class="nozoom{{ if $zoom }} rz-lb{{ end }}"
            {{- if $zoom }} data-full="{{ ($img.Fit "2400x2400 webp q88").RelPermalink }}"{{ end }}
            width="{{ $shown.Width }}" height="{{ $shown.Height }}"
-           alt="{{ $page.Title }} — {{ add $i 1 }}"
+           alt="{{ $page.Title }} — {{ path.BaseName $it.name }}"
            loading="{{ if lt $i 3 }}eager{{ else }}lazy{{ end }}" decoding="async">
     </figure>
     {{- else }}
@@ -108,3 +137,7 @@
     {{- end }}
   {{- end }}
 </div>
+{{- with $caption }}
+<figcaption class="rz-caption">{{ . | markdownify }}</figcaption>
+{{- end }}
+</figure>

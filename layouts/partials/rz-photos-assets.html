@@ -2,6 +2,9 @@
        Printed by every rz-photos call; the script runs only once per page. */ -}}
 <style>
   /* Without JavaScript: simple flex rows (close to the final result) */
+  .rz-photos-wrap { margin: 2rem 0 !important; }
+  .rz-photos-wrap > .rz-photos { margin: 0; }
+  .rz-caption { margin-top: 0.6rem !important; font-size: 0.875rem; line-height: 1.4; font-style: italic; text-align: center; opacity: 0.7; }
   .rz-photos { display: flex; flex-wrap: wrap; gap: var(--rz-gap, 0.5rem); margin: 2rem 0; }
   .rz-photos .rz-ph { margin: 0 !important; overflow: hidden; border-radius: 0.25rem; background: rgba(127, 127, 127, 0.08); }
   .rz-photos .rz-ph img { display: block; width: 100%; height: 100%; object-fit: cover; margin: 0 !important; }

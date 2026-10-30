@@ -28,10 +28,13 @@ This repo is **public**. Everything committed here, including `CLAUDE.md` and `d
 | `config/_default/` | Site config: `hugo.toml`, `languages.*.toml`, `menus.*.toml`, `params.toml` |
 | `content/` | Pages. Each page is a bundle: `index.md` (EN) + `index.pt-br.md` (PT-BR) + images |
 | `content/projects/<slug>/` | One folder per project, `feature.jpg` as cover, optional `gallery/01.jpg ...` |
-| `layouts/shortcodes/rz-*.html` | Custom shortcodes: `rz-gallery`, `rz-video`, `rz-feature` (usage documented at the top of each file) |
-| `layouts/partials/rz-*.html` | Partials used by those shortcodes |
+| `content/hobbies/` | Hobbies. `photography/`, `3d-for-fun/`, `cooking/` are sections (`_index.md`) with one gallery bundle per folder; `cycling/`, `homelab/`, `swimming/` are pages. `example-gallery/` folders are drafts used as templates |
+| `content/hobbies/<section>/<gallery>/photos.yaml` | Highlights (`highlight: "05:1 12:2"`) and optional `order:` list, shared by EN and PT |
+| `layouts/shortcodes/rz-*.html` | Custom shortcodes: `rz-photos`, `rz-gallery`, `rz-video`, `rz-feature` (usage documented at the top of each file) |
+| `layouts/partials/rz-*.html` | Partials used by those shortcodes (`rz-photos-assets.html` = justified-rows layout script) |
+| `assets/css/custom.css` | Site-wide overrides: text uses the full content width on every page |
 | `scripts/prepare-images.sh` | Renames, strips metadata and resizes images for the site |
-| `docs/` | Project notes and progress log (not rendered by Hugo) |
+| `docs/` | Project notes, progress log and `manual-galerias.md` (gallery how-to, PT-BR); not rendered by Hugo |
 
 ## Conventions
 
@@ -39,6 +42,9 @@ This repo is **public**. Everything committed here, including `CLAUDE.md` and `d
 - Project pages start with a status badge (`{{< badge >}}In progress{{< /badge >}}`) and use front matter
   `title`, `summary`, `date`, `weight`, `tags`.
 - Commit messages: short imperative English sentence describing what was added or changed.
+- Hiding a hobby/section without deleting it: front matter `build: {render: never, list: never, publishResources: false}`
+  plus the same under `cascade:` (do not use `draft: true` on sections: child pages would still be published).
+- After editing `photos.yaml` or a shortcode, restart `hugo server`: changes are not always picked up live.
 
 ## Commands
 

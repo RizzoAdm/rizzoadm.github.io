@@ -1,0 +1,13 @@
+# Gallery settings, shared by the EN and PT pages. Optional file.
+# Highlight levels (lower number = bigger photo):
+#   1 = full row   2 = large (row with at most 1 other)   3 = normal (default)   4 = small
+#
+# Option A - only the exceptions. All other photos = 3, in file-name order.
+highlight: "01:2 02:2 03:1 04:1 10:1 23:2 24:2 25:1"
+#
+# Option B - full list: controls the ORDER and the highlight. When "order" exists, it wins.
+# Photos not listed go to the end (level 3). A name that does not exist shows a placeholder.
+# order:
+#   - 03.jpg: 1
+#   - 01.jpg
+#   - 02.jpg: 2

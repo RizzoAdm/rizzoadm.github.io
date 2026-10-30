@@ -1,0 +1,11 @@
+/* custom.css — loaded automatically by Blowfish on every page, after the theme CSS.
+   Text uses the full content width on every page
+   (Blowfish default is "max-w-prose", about 65 characters per line).
+   To go back to the theme default, delete this file or comment the rules below. */
+
+/* Single pages (About, Experience, projects, hobbies, galleries...) */
+section.prose > div.max-w-fit { max-width: none; width: 100%; }
+.article-content { max-width: none !important; }
+
+/* List pages (Projects, Hobbies, Photography...): text above the cards */
+section.prose > div.max-w-prose { max-width: none !important; }

@@ -1,6 +1,6 @@
 # Manual: galerias de 3D e fotografia
 
-Como adicionar e atualizar galerias em **Hobbies → 3D por diversão**, **Hobbies → Fotografia** e **Hobbies → Cozinha**.
+Como adicionar e atualizar galerias em **Hobbies → 3D por diversão** e **Hobbies → Fotografia**.
 
 - Todos os comandos rodam no **Terminal**, na pasta do site (`cd ~/Projects/mr.rizzo`).
 - Os arquivos de texto são editados no **VS Code**.
@@ -19,7 +19,7 @@ hugo server
 git add content/hobbies/3d-for-fun/NOME && git commit -m "Add 3D hobby gallery: TÍTULO" && git push
 ```
 
-Para fotografia, troque `3d-for-fun` por `photography`. Para cozinha, por `cooking`.
+Para fotografia, troque `3d-for-fun` por `photography`.
 
 ---
 
@@ -36,8 +36,7 @@ content/hobbies/
 │       ├── photos.yaml         destaques e ordem (opcional)
 │       ├── feature.jpg         capa do card (3:2, 1200x800)
 │       └── gallery/            imagens: 01.jpg, 02.jpg, ...
-├── photography/                ← seção Fotografia (mesma estrutura)
-└── cooking/                    ← seção Cozinha (mesma estrutura)
+└── photography/                ← seção Fotografia (mesma estrutura)
 ```
 
 ---
@@ -224,31 +223,6 @@ Antes do `git add`, leia o `git status` e confira se só aparece o que você que
 | Esconder uma galeria sem apagar | Coloque `draft: true` nos dois `index` |
 | Mudar a ordem dos cards | Alterar o `weight` |
 | Apagar uma galeria | `git rm -r content/hobbies/3d-for-fun/NOME` → commit → push |
-| Esconder uma categoria inteira de Hobbies | Ver abaixo |
-
-### Esconder uma categoria de Hobbies (sem apagar)
-
-Copie este bloco no cabeçalho (entre os `---`) dos **dois** arquivos do idioma:
-- **seção** (Fotografia, 3D, Cozinha): `_index.md` e `_index.pt-br.md`;
-- **página simples** (Homelab, Bicicleta, Natação): `index.md` e `index.pt-br.md`.
-
-```yaml
-build:
-  render: never
-  list: never
-  publishResources: false
-cascade:
-  build:
-    render: never
-    list: never
-    publishResources: false
-```
-
-Com isso somem o card, a página, as galerias de dentro e as imagens, inclusive no `hugo server -D`. Para mostrar de novo, apague o bloco.
-
-- Em páginas simples, o `cascade` não é necessário, mas não atrapalha. Use o bloco inteiro sempre.
-- **Não use `draft: true` em seções.** Ele esconde o card, mas as galerias publicadas de dentro continuam acessíveis pelo endereço direto.
-- Revise a `description` em `content/hobbies/_index.md` e `_index.pt-br.md`, que lista os hobbies.
 
 ---
 
