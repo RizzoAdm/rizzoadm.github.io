@@ -1,0 +1,110 @@
+{{- /*
+  rz-photos: photo gallery in justified rows. Every photo keeps its original shape (no crop),
+  each row fills the page width, and photos can be highlighted. Click opens the whole photo.
+
+  Basic (all photos in gallery/, file-name order, all normal size):
+    {{< rz-photos >}}
+
+  Highlights are set in ONE file inside the gallery folder, shared by EN and PT:
+    <gallery bundle>/photos.yaml   (optional; see the example gallery)
+
+      # Option A - only the exceptions. Everything else = 3, in file-name order.
+      highlight: "05:1 12:2 18:2"
+
+      # Option B - full list: controls the ORDER and the highlight of each photo.
+      # When "order" exists it wins. Photos not listed are added at the end (level 3).
+      order:
+        - 05.jpg: 1
+        - 01.jpg
+        - 02.jpg: 2
+
+  Highlight levels (lower number = bigger photo):
+    1  a full row just for this photo
+    2  large: shares its row with at most one other photo
+    3  normal (default)
+    4  small: rows made only of level-4 photos are lower, so more photos fit
+
+  Parameters (all optional):
+    dir        folder with the photos inside the bundle (default "gallery")
+    highlight  same as "highlight" in photos.yaml (overrides it; handy for quick tests)
+    height     target row height in px on desktop (default 280; tablet and phone scale down)
+    zoom       "false" = no click-to-enlarge (default "true")
+    wide       "false" = keep the text width (default "true" = full page width)
+
+  A file listed in "order" that does not exist yet shows a placeholder with its expected name.
+  Prepare photos first (removes EXIF/GPS):  bash scripts/prepare-images.sh <source> <bundle>/gallery
+*/ -}}
+{{- partial "rz-media-css.html" .Page -}}
+{{- partial "rz-photos-assets.html" .Page -}}
+{{- $page := .Page -}}
+{{- $truthy := slice "true" "1" "yes" -}}
+{{- $dir := .Get "dir" | default "gallery" -}}
+{{- $zoom := in $truthy (lower (.Get "zoom" | default "true")) -}}
+{{- $wide := in $truthy (lower (.Get "wide" | default "true")) -}}
+{{- $height := int (.Get "height" | default 280) -}}
+
+{{- /* Settings file shared by all languages */ -}}
+{{- $cfg := dict -}}
+{{- with $page.Resources.GetMatch "photos.yaml" -}}{{- $cfg = . | transform.Unmarshal -}}{{- end -}}
+{{- $hlStr := .Get "highlight" | default ($cfg.highlight | default "") -}}
+
+{{- /* "05:1 12:2" -> map of file stem -> level */ -}}
+{{- $hl := dict -}}
+{{- range split (replace (string $hlStr) "," " ") " " -}}
+  {{- with trim . " " -}}
+    {{- $kv := split . ":" -}}
+    {{- if eq (len $kv) 2 -}}
+      {{- $hl = merge $hl (dict (path.BaseName (index $kv 0)) (int (index $kv 1))) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $all := sort ($page.Resources.Match (printf "%s/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}" $dir)) "Name" -}}
+
+{{- /* Build the ordered list: (name, level) */ -}}
+{{- $items := slice -}}
+{{- $used := dict -}}
+{{- with $cfg.order -}}
+  {{- range . -}}
+    {{- $name := "" -}}{{- $lvl := 3 -}}
+    {{- if reflect.IsMap . -}}
+      {{- range $k, $v := . -}}{{- $name = $k -}}{{- $lvl = int $v -}}{{- end -}}
+    {{- else -}}
+      {{- $name = string . -}}
+    {{- end -}}
+    {{- $name = path.Base $name -}}
+    {{- $items = $items | append (dict "name" $name "level" $lvl) -}}
+    {{- $used = merge $used (dict $name true) -}}
+  {{- end -}}
+{{- end -}}
+{{- range $all -}}
+  {{- $name := path.Base .Name -}}
+  {{- if not (index $used $name) -}}
+    {{- $stem := path.BaseName $name -}}
+    {{- $items = $items | append (dict "name" $name "level" (index $hl $stem | default 3)) -}}
+  {{- end -}}
+{{- end -}}
+
+<div class="rz-photos{{ if $wide }} rz-wide{{ end }}" data-height="{{ $height }}">
+  {{- range $i, $it := $items }}
+    {{- $img := $page.Resources.GetMatch (printf "%s/%s" $dir $it.name) -}}
+    {{- $lvl := $it.level -}}
+    {{- if lt $lvl 1 }}{{ $lvl = 1 }}{{ end }}{{ if gt $lvl 4 }}{{ $lvl = 4 }}{{ end -}}
+    {{- if $img }}
+      {{- $r := div (float $img.Width) $img.Height -}}
+      {{- $max := cond (eq $lvl 1) 2400 (cond (eq $lvl 2) 1800 1200) -}}
+      {{- $shown := $img.Fit (printf "%dx%d webp q82" $max $max) -}}
+      {{- if and (le $img.Width $max) (le $img.Height $max) }}{{ $shown = $img.Resize (printf "%dx webp q82" $img.Width) }}{{ end }}
+    <figure class="rz-ph" data-r="{{ $r }}" data-level="{{ $lvl }}" style="flex: {{ $r }} 1 {{ mul $r (cond (eq $lvl 1) 2000 240) }}px;">
+      <img src="{{ $shown.RelPermalink }}"
+           class="nozoom{{ if $zoom }} rz-lb{{ end }}"
+           {{- if $zoom }} data-full="{{ ($img.Fit "2400x2400 webp q88").RelPermalink }}"{{ end }}
+           width="{{ $shown.Width }}" height="{{ $shown.Height }}"
+           alt="{{ $page.Title }} — {{ add $i 1 }}"
+           loading="{{ if lt $i 3 }}eager{{ else }}lazy{{ end }}" decoding="async">
+    </figure>
+    {{- else }}
+    <figure class="rz-ph rz-placeholder" data-r="1.5" data-level="{{ $lvl }}" style="flex: 1.5 1 360px;" aria-hidden="true">{{ $dir }}/{{ $it.name }}</figure>
+    {{- end }}
+  {{- end }}
+</div>

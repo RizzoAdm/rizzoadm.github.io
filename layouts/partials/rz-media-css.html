@@ -3,7 +3,7 @@
   /* Wide mode: the page content uses the full page width, but plain text stays at a readable width */
   .article-content:has(.rz-wide) { max-width: none; }
   div:has(> .article-content .rz-wide) { max-width: none; width: 100%; }
-  .article-content:has(.rz-wide) > :not(.rz-wide) { max-width: 65ch; }
+  .article-content:has(.rz-wide) > :not(.rz-wide) { max-width: none; }
 
   /* Gallery */
   .rz-gallery {

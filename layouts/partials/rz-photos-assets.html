@@ -1,0 +1,96 @@
+{{- /* CSS + layout script for the rz-photos shortcode (justified rows with highlights).
+       Printed by every rz-photos call; the script runs only once per page. */ -}}
+<style>
+  /* Without JavaScript: simple flex rows (close to the final result) */
+  .rz-photos { display: flex; flex-wrap: wrap; gap: var(--rz-gap, 0.5rem); margin: 2rem 0; }
+  .rz-photos .rz-ph { margin: 0 !important; overflow: hidden; border-radius: 0.25rem; background: rgba(127, 127, 127, 0.08); }
+  .rz-photos .rz-ph img { display: block; width: 100%; height: 100%; object-fit: cover; margin: 0 !important; }
+  .rz-photos .rz-placeholder { aspect-ratio: 3 / 2; display: flex; align-items: center; justify-content: center; }
+  /* After JavaScript: one div per row, sizes set exactly */
+  .rz-photos.rz-ready { display: block; }
+  .rz-photos .rz-row { display: flex; justify-content: center; gap: var(--rz-gap, 0.5rem); margin-bottom: var(--rz-gap, 0.5rem); }
+  .rz-photos.rz-ready .rz-ph { flex: none !important; aspect-ratio: auto; }
+  .rz-photos .rz-lb { transition: opacity 0.2s ease; }
+  .rz-photos .rz-lb:hover { opacity: 0.9; }
+</style>
+<script>
+  if (!window.rzPhotos) { window.rzPhotos = true;
+  (function () {
+    function layout(box) {
+      var W = box.clientWidth;
+      if (!W) return;
+      var gap = parseFloat(getComputedStyle(box).columnGap) || 8;
+      var base = parseFloat(box.dataset.height) || 280;
+      var H = W < 640 ? base * 0.6 : (W < 1024 ? base * 0.8 : base);
+      var maxH = Math.max(240, window.innerHeight * 0.85);
+      if (!box._items) box._items = Array.prototype.slice.call(box.querySelectorAll(":scope > .rz-ph"));
+      var items = box._items.map(function (el) {
+        return { el: el, r: parseFloat(el.dataset.r) || 1.5, lvl: parseInt(el.dataset.level, 10) || 3 };
+      });
+
+      var rows = [], cur = [];
+      function sumR(row) { return row.reduce(function (s, it) { return s + it.r; }, 0); }
+      function target(row) { return row.every(function (it) { return it.lvl === 4; }) ? H * 0.6 : H; }
+      function flush(isLast) {
+        if (!cur.length) return;
+        var n = cur.length, s = sumR(cur), t = target(cur);
+        var full = (W - gap * (n - 1)) / s;           // height that fills the row exactly
+        var big = cur.some(function (it) { return it.lvl <= 2; });
+        var h;
+        if (big) h = Math.min(full, maxH);             // highlighted rows fill the width (capped)
+        else if (full <= t * 1.05) h = full;           // normal full row
+        else if (isLast || s * t + gap * (n - 1) < W * 0.6) h = t;  // short row: keep normal height, centered
+        else h = Math.min(full, t * 2);                // cut short by a highlight: fill the width (limited)
+        rows.push({ items: cur, h: h });
+        cur = [];
+      }
+
+      items.forEach(function (it, i) {
+        if (it.lvl === 1) { flush(false); cur = [it]; flush(false); return; }
+        var nextTwo = items[i + 1] && items[i + 1].lvl === 2;
+        var prevTwo = cur.length === 1 && cur[0].lvl === 2;
+        // two level-2 photos in a row are paired together in the same row
+        if (it.lvl === 2 && cur.length && !prevTwo && (cur.length >= 2 || nextTwo || W < 640)) flush(false);
+        if (it.lvl !== 2 && cur.length === 1 && cur[0].lvl === 2 && W < 640) flush(false);
+        cur.push(it);
+        var hasTwo = cur.some(function (x) { return x.lvl === 2; });
+        if (hasTwo && (cur.length >= 2 || W < 640)) { flush(false); return; }
+        if (sumR(cur) * target(cur) + gap * (cur.length - 1) >= W) flush(false);
+      });
+      flush(true);
+
+      var frag = document.createDocumentFragment();
+      rows.forEach(function (row) {
+        var div = document.createElement("div");
+        div.className = "rz-row";
+        row.items.forEach(function (it) {
+          it.el.style.width = Math.floor(it.r * row.h) + "px";
+          it.el.style.height = Math.floor(row.h) + "px";
+          div.appendChild(it.el);
+        });
+        frag.appendChild(div);
+      });
+      box.textContent = "";
+      box.appendChild(frag);
+      box.classList.add("rz-ready");
+    }
+
+    function init() {
+      document.querySelectorAll(".rz-photos").forEach(function (box) {
+        var lastW = 0, raf = 0;
+        layout(box); lastW = box.clientWidth;
+        if (window.ResizeObserver) {
+          new ResizeObserver(function () {
+            if (box.clientWidth === lastW) return;
+            lastW = box.clientWidth;
+            cancelAnimationFrame(raf);
+            raf = requestAnimationFrame(function () { layout(box); });
+          }).observe(box);
+        }
+      });
+    }
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+    else init();
+  })();
+  }
+</script>
