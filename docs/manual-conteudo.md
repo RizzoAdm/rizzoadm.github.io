@@ -5,6 +5,7 @@ Como adicionar e atualizar conteúdo no site sem esquecer nada. Vale para projet
 - Todos os comandos rodam no **Terminal**, na pasta do site: `cd ~/Projects/mr.rizzo`.
 - Os textos são editados no **VS Code**. Para abrir a pasta inteira: `code .`
 - Os detalhes de galeria (destaques, `photos.yaml`, boas práticas de imagem) estão em [`manual-galerias.md`](manual-galerias.md).
+- Configuração, formulário de contato e atualização do tema/Hugo: [`manual-site.md`](manual-site.md).
 
 ---
 

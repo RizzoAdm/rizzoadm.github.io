@@ -40,7 +40,8 @@ This repo is **public**. Everything committed here, including `CLAUDE.md` and `d
 | `scripts/new.sh` | One-command content creation: `project`, `gallery`, `hobby`, `images` (append to a gallery), `cover` (make `feature.jpg`). Uses the archetypes, sets `weight` to last + 10, runs `prepare-images.sh` |
 | `scripts/check.sh` | Pre-publish checklist: EN/PT pairs, summary/description, leftover `TODO`, drafts, covers, image metadata and size, production build, git status. Exit 1 on errors; `--quick` skips the build |
 | `scripts/prepare-images.sh` | Renames, strips metadata and resizes images for the site |
-| `docs/` | Project notes, progress log, `manual-conteudo.md` (content routine, PT-BR) and `manual-galerias.md` (gallery how-to, PT-BR); not rendered by Hugo |
+| `README.md` / `README.pt-br.md` | Repository README in English and Portuguese, linked to each other at the top. Keep both in sync |
+| `docs/` | Progress log and manuals (PT-BR, not rendered by Hugo): `manual-site.md` (main manual: site map, contact form, config, theme/Hugo upgrades), `manual-conteudo.md` (content routine), `manual-galerias.md` (gallery how-to) |
 
 ## Conventions
 
@@ -55,6 +56,7 @@ This repo is **public**. Everything committed here, including `CLAUDE.md` and `d
   plus the same under `cascade:` (do not use `draft: true` on sections: child pages would still be published).
 - `web3formsAccessKey` stays at the top of `config/_default/params.toml` (outside any `[section]`). It is public by design.
 - Pushing to `main` publishes the site (about 2–3 min; check the Actions tab). Preview locally first.
+- Upgrading Blowfish or the workflow Hugo version: follow `docs/manual-site.md` (sections 9 and 10); test with the exact pinned Hugo binary first.
 - Local Hugo (snap) may be newer than the pinned 0.167.0 and shows a Blowfish compatibility WARN: harmless locally. Do not raise the workflow version beyond the theme's max.
 - SEO: the site description lives in `languages.*.toml` (`[params] description`). Pages without `summary` need a
   `description` in front matter. Share image fallback: `defaultSocialImage` in `params.toml` (avatar).

@@ -1,5 +1,7 @@
 # rizzoadm.github.io
 
+**English** | [Português](README.pt-br.md)
+
 Source code for **Mr. Rizzo**'s personal website and professional portfolio, published at [rizzoadm.github.io](https://rizzoadm.github.io).
 
 ## What this site is
@@ -69,8 +71,6 @@ bash scripts/prepare-images.sh <source folder> <bundle>/gallery [start number]
 
 It renames files in sequence (`01.jpg`, `02.jpg`, ...), strips **all** metadata (EXIF, GPS, camera, file paths), converts to sRGB JPEG (quality 88) and limits the longest side to 2560 px. Originals are never modified and are kept outside the repository.
 
-Step-by-step guide for adding galleries (in Portuguese): [`docs/manual-galerias.md`](docs/manual-galerias.md).
-
 ## Adding content
 
 ```bash
@@ -81,7 +81,17 @@ bash scripts/new.sh images <page folder> <image folder>        # add images to a
 bash scripts/check.sh                                          # pre-publish checklist (run before every push)
 ```
 
-New pages are created from `archetypes/` with `TODO` placeholders; `check.sh` fails until every one is replaced. It also checks that every page exists in both languages, has a summary, has a cover, that no image carries metadata, and that the production build has no warnings. Full routine (in Portuguese): [`docs/manual-conteudo.md`](docs/manual-conteudo.md).
+New pages are created from `archetypes/` with `TODO` placeholders; `check.sh` fails until every one is replaced. It also checks that every page exists in both languages, has a summary, has a cover, that no image carries metadata, and that the production build has no warnings.
+
+## Documentation
+
+Manuals are in Portuguese.
+
+| Manual | Contents |
+|---|---|
+| [`docs/manual-site.md`](docs/manual-site.md) | Main manual: site map, contact form, configuration (menus, languages, colors, favicon, SEO, hiding sections) and safe theme / Hugo upgrades |
+| [`docs/manual-conteudo.md`](docs/manual-conteudo.md) | Content routine: projects, galleries, hobbies, updates and the pre-publish checklist |
+| [`docs/manual-galerias.md`](docs/manual-galerias.md) | Galleries in depth: `photos.yaml` highlights, image best practices, privacy checklist |
 
 ## Deployment
 
@@ -93,4 +103,4 @@ Every push to `main` runs `.github/workflows/hugo.yml`, which builds the site wi
 
 ## Status
 
-Live at [rizzoadm.github.io](https://rizzoadm.github.io). Content routine in place; final documentation in progress.
+Live at [rizzoadm.github.io](https://rizzoadm.github.io). Content routine and documentation complete.

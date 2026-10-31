@@ -14,6 +14,7 @@ This file is public: keep it to work notes only (see privacy rules in `CLAUDE.md
 - Custom favicon (cyan geometric "R" on dark indigo) in `static/`. Home "Recent" lists projects only.
 - Stage 11 (final review) done: build has no warnings; SEO descriptions and share image in place.
 - Stage 12 (content routine) done: archetypes, `scripts/new.sh`, `scripts/check.sh`, `docs/manual-conteudo.md`.
+- **Project complete (2026-10-31):** README in PT-BR (`README.pt-br.md`), main manual (`docs/manual-site.md`), LinkedIn post drafted.
 
 ## Next steps
 
@@ -21,7 +22,6 @@ This file is public: keep it to work notes only (see privacy rules in `CLAUDE.md
       (`url` instead of `pageRef`) between Hobbies and Contact. Do not add `blog` back to `mainSections`
 - [ ] Cooking: add a gallery and remove the `build` block
 - [ ] Legal AI: update status and numbers when the project moves forward
-- [ ] End of project: README in PT-BR, full site manual (can build on `manual-conteudo.md` + `manual-galerias.md`; still missing: contact form, config), LinkedIn post
 
 ## Decisions
 
@@ -35,6 +35,17 @@ This file is public: keep it to work notes only (see privacy rules in `CLAUDE.md
   ("New message from rizzoadm.github.io") so one mail filter catches it.
 
 ## Session log
+
+### 2026-10-31 (final stage: documentation and wrap-up)
+- `README.pt-br.md`: Portuguese version of the README; both READMEs link to each other at the top
+  (`English | Português`) and now have a Documentation table.
+- `docs/manual-site.md` (PT-BR): main manual. Site map ("to change X, edit Y"), contact form (Web3Forms: key,
+  dashboard, texts, tests, troubleshooting), menus (incl. external link for the future blog), languages,
+  colors / custom CSS / favicon, SEO and sharing (LinkedIn Post Inspector), hiding sections, safe Blowfish upgrade
+  (submodule checkout by tag, rollback), Hugo versions (local snap vs pinned workflow, testing with the exact
+  pinned binary in `~/bin/hugo-0.167.0`), troubleshooting, privacy. Links to `manual-conteudo.md` and `manual-galerias.md`.
+- Current theme: Blowfish v3.9.0 (`ebe683e`), Hugo range 0.164.0–0.167.0.
+- LinkedIn post and card image (square 1200x1200 and landscape 1200x627) made outside the repository.
 
 ### 2026-10-31 (stage 12: Content routine)
 - Archetypes for `hugo new`: `archetypes/projects/` (status badge, summary, date, weight, tags), `archetypes/gallery/`
