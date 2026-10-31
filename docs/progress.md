@@ -6,25 +6,53 @@ This file is public: keep it to work notes only (see privacy rules in `CLAUDE.md
 ## Current status
 
 - Site content: Home, About, Experience, Skills, Projects (Legal AI, Local AI, Family Finance,
-  3D Archviz, Beaver Buzz Energy) and Hobbies, all in EN and PT-BR.
+  3D Archviz, Beaver Buzz Energy), Hobbies and Contact, all in EN and PT-BR.
 - Hobbies: Photography (Animals & Plants, The Moon, HDR), 3D for Fun (Corvette), Homelab, Cycling,
   Swimming. Cooking is hidden (`build` block) until there are photos.
-- Menu items still without a page: Contact (stage 9).
-- **Not deployed yet.** No `.github/workflows/` file.
+- Contact: cards (LinkedIn, GitHub, Message) + Web3Forms form; `thanks/` page after sending.
+- **Live** at https://rizzoadm.github.io since 2026-10-30, deployed by GitHub Actions (`.github/workflows/hugo.yml`).
+- Custom favicon (cyan geometric "R" on dark indigo) in `static/`. Home "Recent" lists projects only.
 
 ## Next steps
 
-- [ ] Stage 9: Contact page with the LinkedIn link (`/contact/` is already linked from Family Finance)
-- [ ] Blog section (`content/blog`, EN/PT), then the menu item between Hobbies and Contact
-- [ ] Replace the site icon/favicon (still Blowfish's)
-- [ ] Stage 10: GitHub Actions workflow; pin a Hugo version supported by Blowfish (0.164–0.167; local is 0.169 via snap);
-      checkout with submodules; turn off `showRecent` if there is no recent content
-- [ ] Stage 11: final review (mobile: About photo strip, timeline, galleries; long text at full width; links; privacy)
+- [ ] Stage 11: final review (mobile: About photo strip, timeline, galleries, contact cards; long text at full width;
+      links; privacy); replace deprecated `languageName` / `languageCode` in `languages.*.toml`
+      with `label` / `locale` (Hugo build WARN, harmless for now)
+- [ ] Blog: will be hosted outside this site. When it exists, add only an external link to the menu
+      (`url` instead of `pageRef`) between Hobbies and Contact. Do not add `blog` back to `mainSections`
 - [ ] Cooking: add a gallery and remove the `build` block
 - [ ] Legal AI: update status and numbers when the project moves forward
-- [ ] End of project: README in PT-BR, full site manual (blog, galleries, projects), LinkedIn post
+- [ ] End of project: README in PT-BR, full site manual (galleries, projects, contact form), LinkedIn post
+
+## Decisions
+
+- Hosting: GitHub Pages via GitHub Actions; Hugo pinned to the newest version Blowfish supports.
+- Home "Recent" shows projects only (`mainSections = ["projects"]`).
+- Contact page shows an "Open to opportunities" badge. This is a deliberate exception chosen by the owner;
+  do not remove it during reviews.
+- Contact form: Web3Forms (free plan). The access key lives in `config/_default/params.toml`
+  (`web3formsAccessKey`, top of the file) and is public by design: it does not reveal the destination email.
+  hCaptcha is enabled in the Web3Forms dashboard. The email subject is fixed in English in both languages
+  ("New message from rizzoadm.github.io") so one mail filter catches it.
 
 ## Session log
+
+### 2026-10-30 (stage 10: Deploy)
+- `.github/workflows/hugo.yml`: official GitHub Pages flow (configure-pages, upload-pages-artifact, deploy-pages),
+  Hugo extended 0.167.0 pinned, submodules checked out, `resources/_gen` cached. Pages source set to GitHub Actions.
+- Full build tested with Hugo 0.167.0 before publishing (about 2 min without cache).
+- `mainSections = ["projects"]` (blog removed); `showRecent` kept on.
+- Custom favicon set in `static/` (+ `site.webmanifest` with site name and dark theme color).
+- Tested on the live site: contact form in EN and PT (email arrives under the Gmail label, thanks page),
+  `/contact/` link from Family Finance in both languages.
+
+### 2026-10-30 (stage 9: Contact)
+- `content/contact/` (EN/PT): badge, intro, location and languages line, channel cards, form.
+- `content/thanks/` (EN/PT): confirmation page after sending; `noindex`, not listed, not in the sitemap.
+- New shortcodes: `rz-contact-cards` + `rz-contact-card` (clickable cards with Blowfish icons),
+  `rz-contact-form` (Web3Forms form, hCaptcha + honeypot, redirect to `thanks/` of the current language).
+- Contact styles appended to `assets/css/custom.css`.
+- Blog decision changed: it will not live in this repository.
 
 ### 2026-10-28 to 2026-10-30 (stage 8: Hobbies and photography)
 - Hobbies section (cards): Photography, 3D for Fun and Cooking as gallery sections; Homelab, Cycling, Swimming as pages.

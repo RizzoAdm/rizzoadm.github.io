@@ -25,14 +25,17 @@ This repo is **public**. Everything committed here, including `CLAUDE.md` and `d
 
 | Path | Purpose |
 |---|---|
+| `.github/workflows/hugo.yml` | Deploy to GitHub Pages on every push to `main`. Hugo pinned to 0.167.0 (Blowfish supports 0.164–0.167); checkout with submodules; `resources/_gen` cached |
+| `static/` | Site icons (`favicon.ico`, PNG sizes, `favicon.svg` source) and `site.webmanifest`; override the Blowfish defaults |
 | `config/_default/` | Site config: `hugo.toml`, `languages.*.toml`, `menus.*.toml`, `params.toml` |
 | `content/` | Pages. Each page is a bundle: `index.md` (EN) + `index.pt-br.md` (PT-BR) + images |
 | `content/projects/<slug>/` | One folder per project, `feature.jpg` as cover, optional `gallery/01.jpg ...` |
 | `content/hobbies/` | Hobbies. `photography/`, `3d-for-fun/`, `cooking/` are sections (`_index.md`) with one gallery bundle per folder; `cycling/`, `homelab/`, `swimming/` are pages. `example-gallery/` folders are drafts used as templates |
 | `content/hobbies/<section>/<gallery>/photos.yaml` | Highlights (`highlight: "05:1 12:2"`) and optional `order:` list, shared by EN and PT |
-| `layouts/shortcodes/rz-*.html` | Custom shortcodes: `rz-photos`, `rz-gallery`, `rz-video`, `rz-feature` (usage documented at the top of each file) |
+| `content/contact/`, `content/thanks/` | Contact page (cards + Web3Forms form) and the confirmation page shown after sending (`noindex`, not listed) |
+| `layouts/shortcodes/rz-*.html` | Custom shortcodes: `rz-photos`, `rz-gallery`, `rz-video`, `rz-feature`, `rz-contact-cards`, `rz-contact-card`, `rz-contact-form` (usage documented at the top of each file) |
 | `layouts/partials/rz-*.html` | Partials used by those shortcodes (`rz-photos-assets.html` = justified-rows layout script) |
-| `assets/css/custom.css` | Site-wide overrides: text uses the full content width on every page |
+| `assets/css/custom.css` | Site-wide overrides: text uses the full content width on every page; contact page styles at the end |
 | `scripts/prepare-images.sh` | Renames, strips metadata and resizes images for the site |
 | `docs/` | Project notes, progress log and `manual-galerias.md` (gallery how-to, PT-BR); not rendered by Hugo |
 
@@ -44,6 +47,9 @@ This repo is **public**. Everything committed here, including `CLAUDE.md` and `d
 - Commit messages: short imperative English sentence describing what was added or changed.
 - Hiding a hobby/section without deleting it: front matter `build: {render: never, list: never, publishResources: false}`
   plus the same under `cascade:` (do not use `draft: true` on sections: child pages would still be published).
+- `web3formsAccessKey` stays at the top of `config/_default/params.toml` (outside any `[section]`). It is public by design.
+- Pushing to `main` publishes the site (about 2–3 min; check the Actions tab). Preview locally first.
+- Local Hugo (snap) may be newer than the pinned 0.167.0 and shows a Blowfish compatibility WARN: harmless locally. Do not raise the workflow version beyond the theme's max.
 - After editing `photos.yaml` or a shortcode, restart `hugo server`: changes are not always picked up live.
 
 ## Commands

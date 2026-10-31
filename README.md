@@ -32,6 +32,7 @@ Then open http://localhost:1313.
 
 | Folder | Purpose |
 |---|---|
+| `.github/workflows/` | GitHub Actions deploy workflow (`hugo.yml`) |
 | `config/_default/` | Site configuration (languages, menus, theme parameters) |
 | `assets/` | Images, custom color schemes and `css/custom.css` (site-wide CSS overrides) |
 | `content/` | Pages and posts. Each page is a bundle: `index.md` (EN) + `index.pt-br.md` (PT-BR) + images |
@@ -40,7 +41,7 @@ Then open http://localhost:1313.
 | `layouts/shortcodes/` | Custom `rz-*` shortcodes (see below) |
 | `layouts/partials/` | Partials used by the `rz-*` shortcodes (CSS, lightbox, gallery layout) |
 | `scripts/` | Helper scripts (image preparation) |
-| `static/` | Files served as-is |
+| `static/` | Files served as-is (site icons / favicon, `site.webmanifest`) |
 | `themes/blowfish/` | Theme (submodule) |
 | `docs/` | Project notes, progress log and manuals (not rendered) |
 
@@ -54,6 +55,8 @@ Usage is documented at the top of each file in `layouts/shortcodes/`.
 | `rz-gallery` | Image grid with fixed or original aspect ratio, optional placeholders, lightbox and video tile |
 | `rz-video` | Responsive Vimeo or YouTube embed (videos are not stored in the repository) |
 | `rz-feature` | Video next to a 2×2 image grid |
+| `rz-contact-cards` / `rz-contact-card` | Clickable contact channel cards (LinkedIn, GitHub, message) |
+| `rz-contact-form` | Contact form sent through [Web3Forms](https://web3forms.com/) (hCaptcha + honeypot), redirects to the `thanks/` page of the current language |
 
 ## Images
 
@@ -67,6 +70,14 @@ It renames files in sequence (`01.jpg`, `02.jpg`, ...), strips **all** metadata 
 
 Step-by-step guide for adding galleries (in Portuguese): [`docs/manual-galerias.md`](docs/manual-galerias.md).
 
+## Deployment
+
+Every push to `main` runs `.github/workflows/hugo.yml`, which builds the site with Hugo extended and publishes it to GitHub Pages (Settings → Pages → Source: **GitHub Actions**).
+
+- Hugo is pinned to **0.167.0**, the newest version supported by the Blowfish theme (0.164–0.167). Before upgrading, check `[module.hugoVersion]` in `themes/blowfish/config.toml`.
+- The theme submodule is checked out by the workflow; processed images are cached between runs.
+- A run can also be started by hand from the **Actions** tab (`workflow_dispatch`).
+
 ## Status
 
-Under construction. Not yet deployed.
+Live at [rizzoadm.github.io](https://rizzoadm.github.io). Final review and documentation in progress.
