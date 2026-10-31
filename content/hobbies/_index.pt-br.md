@@ -1,6 +1,6 @@
 ---
 title: "Hobbies"
-description: "O que eu faço por diversão: fotografia, 3D, homelab, cozinha, bicicleta e natação."
+description: "O que eu faço por diversão: fotografia, 3D, homelab, bicicleta e natação."
 cardView: true
 groupByYear: false
 orderByWeight: true

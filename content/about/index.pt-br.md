@@ -1,5 +1,6 @@
 ---
 title: "Quem sou eu"
+description: "Guilherme Rizzo: formado em Física, com passagem por TI, segurança pública e 3D. Hoje em service desk de TI e gestão de identidades e acessos, em Calgary."
 showHero: true
 heroStyle: "basic"
 showDate: false

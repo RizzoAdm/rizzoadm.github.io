@@ -12,12 +12,10 @@ This file is public: keep it to work notes only (see privacy rules in `CLAUDE.md
 - Contact: cards (LinkedIn, GitHub, Message) + Web3Forms form; `thanks/` page after sending.
 - **Live** at https://rizzoadm.github.io since 2026-10-30, deployed by GitHub Actions (`.github/workflows/hugo.yml`).
 - Custom favicon (cyan geometric "R" on dark indigo) in `static/`. Home "Recent" lists projects only.
+- Stage 11 (final review) done: build has no warnings; SEO descriptions and share image in place.
 
 ## Next steps
 
-- [ ] Stage 11: final review (mobile: About photo strip, timeline, galleries, contact cards; long text at full width;
-      links; privacy); replace deprecated `languageName` / `languageCode` in `languages.*.toml`
-      with `label` / `locale` (Hugo build WARN, harmless for now)
 - [ ] Blog: will be hosted outside this site. When it exists, add only an external link to the menu
       (`url` instead of `pageRef`) between Hobbies and Contact. Do not add `blog` back to `mainSections`
 - [ ] Cooking: add a gallery and remove the `build` block
@@ -36,6 +34,24 @@ This file is public: keep it to work notes only (see privacy rules in `CLAUDE.md
   ("New message from rizzoadm.github.io") so one mail filter catches it.
 
 ## Session log
+
+### 2026-10-30 (stage 11: Final review)
+- Mobile check at 390 px (iPhone size): no horizontal overflow on any page; About photo strip, timeline,
+  galleries (lazy loading OK), contact cards and form OK.
+- Links: all internal links resolve; EN/PT switch works on every page (tag pages excepted: tag names differ by language).
+- Privacy: no email, phone or address in content, docs or git history; commits use the GitHub noreply address;
+  all images (current and every past version in git history) have no EXIF/GPS/XMP.
+  Owner chose to keep the mention of his mother on the Duna page and the family context of Family Finance.
+- `languages.*.toml`: `languageCode`/`languageName` replaced by `locale` (`en`, `pt-BR`) / `label`. No more build warnings;
+  `og:locale` is now `pt_BR`.
+- Experience badges shortened to years only (`2022–2025`) so they fit on phones.
+- GitHub added to the footer menu and the author links (both languages).
+- SEO: site `description` per language (`[params]` in `languages.*.toml`); `description` front matter on About,
+  Experience and Skills; `defaultSocialImage = "img/avatar.jpg"` for pages without a feature image;
+  home page title (used by Open Graph) "Mr. Rizzo · Systems, AI & 3D" / "Mr. Rizzo · Sistemas, IA e 3D".
+  The browser tab on the home page still shows the site title "Mr. Rizzo" (Blowfish uses `.Site.Title` there).
+- Hobbies description no longer mentions cooking (hidden). Typos fixed: macro gallery title, Duna PT text.
+- robots.txt and sitemap.xml checked: sitemap lists only public pages (no `thanks/`, tags or drafts).
 
 ### 2026-10-30 (stage 10: Deploy)
 - `.github/workflows/hugo.yml`: official GitHub Pages flow (configure-pages, upload-pages-artifact, deploy-pages),

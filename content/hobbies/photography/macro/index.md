@@ -1,5 +1,5 @@
 ---
-title: "Animals & Plants throught Macro lens"
+title: "Animals & Plants through Macro lens"
 summary: "Animals and plants through my macro lens."
 weight: 10
 ---

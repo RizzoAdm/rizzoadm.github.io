@@ -1,5 +1,6 @@
 ---
 title: "About me"
+description: "Guilherme Rizzo: Physics degree, then IT, public safety and 3D. Today in IT service desk and identity and access management, based in Calgary."
 showHero: true
 heroStyle: "basic"
 showDate: false

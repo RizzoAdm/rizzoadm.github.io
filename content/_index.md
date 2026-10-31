@@ -1,5 +1,5 @@
 ---
-title: "Home"
+title: "Mr. Rizzo · Systems, AI & 3D"
 ---
 
 Hi! My name is Guilherme Rizzo, and I'm currently based in Calgary, Alberta.

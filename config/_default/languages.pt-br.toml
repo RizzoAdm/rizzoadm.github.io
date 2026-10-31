@@ -1,6 +1,6 @@
 disabled = false
-languageCode = "pt-br"
-languageName = "Português (Brasil)"
+locale = "pt-BR"
+label = "Português (Brasil)"
 weight = 2
 title = "Mr. Rizzo"
 
@@ -8,6 +8,7 @@ title = "Mr. Rizzo"
   displayName = "PT"
   isoCode = "pt-br"
   rtl = false
+  description = "Mr. Rizzo (Guilherme Rizzo): sistemas de TI e gestão de acessos, projetos de IA local, visualização 3D e fotografia. Em Calgary, Canadá."
   dateFormat = "02/01/2006"
 
 [params.author]
@@ -16,4 +17,5 @@ title = "Mr. Rizzo"
   headline = "Systems, AI and 3D"
   links = [
   { linkedin = "https://www.linkedin.com/in/rizzo-admin/" },
+  { github = "https://github.com/RizzoAdm" },
 ]

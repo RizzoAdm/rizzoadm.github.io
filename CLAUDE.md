@@ -50,6 +50,8 @@ This repo is **public**. Everything committed here, including `CLAUDE.md` and `d
 - `web3formsAccessKey` stays at the top of `config/_default/params.toml` (outside any `[section]`). It is public by design.
 - Pushing to `main` publishes the site (about 2–3 min; check the Actions tab). Preview locally first.
 - Local Hugo (snap) may be newer than the pinned 0.167.0 and shows a Blowfish compatibility WARN: harmless locally. Do not raise the workflow version beyond the theme's max.
+- SEO: the site description lives in `languages.*.toml` (`[params] description`). Pages without `summary` need a
+  `description` in front matter. Share image fallback: `defaultSocialImage` in `params.toml` (avatar).
 - After editing `photos.yaml` or a shortcode, restart `hugo server`: changes are not always picked up live.
 
 ## Commands

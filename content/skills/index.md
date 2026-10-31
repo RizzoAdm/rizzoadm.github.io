@@ -1,5 +1,6 @@
 ---
 title: "Skills"
+description: "Certifications and skills: ServiceNow and ITIL, Entra ID and Active Directory, GxP environments, local AI and RAG, Blender and 3D visualization."
 showDate: false
 showReadingTime: false
 showWordCount: false

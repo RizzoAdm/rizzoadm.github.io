@@ -1,5 +1,6 @@
 ---
 title: "Habilidades"
+description: "Certificações e habilidades: ServiceNow e ITIL, Entra ID e Active Directory, ambientes GxP, IA local e RAG, Blender e visualização 3D."
 showDate: false
 showReadingTime: false
 showWordCount: false

@@ -1,6 +1,5 @@
-
 ---
-title: "Início"
+title: "Mr. Rizzo · Sistemas, IA e 3D"
 ---
 
 Olá! Meu nome é Guilherme Rizzo e, atualmente, moro em Calgary, Alberta.
