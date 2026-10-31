@@ -40,7 +40,8 @@ Then open http://localhost:1313.
 | `content/hobbies/` | Hobbies: photography, 3D for fun and cooking as gallery sections; cycling, homelab and swimming as pages |
 | `layouts/shortcodes/` | Custom `rz-*` shortcodes (see below) |
 | `layouts/partials/` | Partials used by the `rz-*` shortcodes (CSS, lightbox, gallery layout) |
-| `scripts/` | Helper scripts (image preparation) |
+| `archetypes/` | Templates for new projects, galleries and hobby pages (`hugo new`) |
+| `scripts/` | Helper scripts: content creation (`new.sh`), pre-publish checks (`check.sh`), image preparation (`prepare-images.sh`) |
 | `static/` | Files served as-is (site icons / favicon, `site.webmanifest`) |
 | `themes/blowfish/` | Theme (submodule) |
 | `docs/` | Project notes, progress log and manuals (not rendered) |
@@ -70,6 +71,18 @@ It renames files in sequence (`01.jpg`, `02.jpg`, ...), strips **all** metadata 
 
 Step-by-step guide for adding galleries (in Portuguese): [`docs/manual-galerias.md`](docs/manual-galerias.md).
 
+## Adding content
+
+```bash
+bash scripts/new.sh project <slug> [image folder]              # new project (EN + PT, images, cover)
+bash scripts/new.sh gallery <section> <slug> <image folder>    # new gallery in photography / 3d-for-fun / cooking
+bash scripts/new.sh hobby <slug> [image folder]                # new hobby page
+bash scripts/new.sh images <page folder> <image folder>        # add images to an existing page
+bash scripts/check.sh                                          # pre-publish checklist (run before every push)
+```
+
+New pages are created from `archetypes/` with `TODO` placeholders; `check.sh` fails until every one is replaced. It also checks that every page exists in both languages, has a summary, has a cover, that no image carries metadata, and that the production build has no warnings. Full routine (in Portuguese): [`docs/manual-conteudo.md`](docs/manual-conteudo.md).
+
 ## Deployment
 
 Every push to `main` runs `.github/workflows/hugo.yml`, which builds the site with Hugo extended and publishes it to GitHub Pages (Settings → Pages → Source: **GitHub Actions**).
@@ -80,4 +93,4 @@ Every push to `main` runs `.github/workflows/hugo.yml`, which builds the site wi
 
 ## Status
 
-Live at [rizzoadm.github.io](https://rizzoadm.github.io). Final review and documentation in progress.
+Live at [rizzoadm.github.io](https://rizzoadm.github.io). Content routine in place; final documentation in progress.

@@ -13,6 +13,7 @@ This file is public: keep it to work notes only (see privacy rules in `CLAUDE.md
 - **Live** at https://rizzoadm.github.io since 2026-10-30, deployed by GitHub Actions (`.github/workflows/hugo.yml`).
 - Custom favicon (cyan geometric "R" on dark indigo) in `static/`. Home "Recent" lists projects only.
 - Stage 11 (final review) done: build has no warnings; SEO descriptions and share image in place.
+- Stage 12 (content routine) done: archetypes, `scripts/new.sh`, `scripts/check.sh`, `docs/manual-conteudo.md`.
 
 ## Next steps
 
@@ -20,7 +21,7 @@ This file is public: keep it to work notes only (see privacy rules in `CLAUDE.md
       (`url` instead of `pageRef`) between Hobbies and Contact. Do not add `blog` back to `mainSections`
 - [ ] Cooking: add a gallery and remove the `build` block
 - [ ] Legal AI: update status and numbers when the project moves forward
-- [ ] End of project: README in PT-BR, full site manual (galleries, projects, contact form), LinkedIn post
+- [ ] End of project: README in PT-BR, full site manual (can build on `manual-conteudo.md` + `manual-galerias.md`; still missing: contact form, config), LinkedIn post
 
 ## Decisions
 
@@ -34,6 +35,17 @@ This file is public: keep it to work notes only (see privacy rules in `CLAUDE.md
   ("New message from rizzoadm.github.io") so one mail filter catches it.
 
 ## Session log
+
+### 2026-10-31 (stage 12: Content routine)
+- Archetypes for `hugo new`: `archetypes/projects/` (status badge, summary, date, weight, tags), `archetypes/gallery/`
+  (+ `photos.yaml`) and `archetypes/hobby/`, all EN + PT with `TODO` placeholders.
+- `scripts/new.sh`: creates projects, galleries and hobby pages in one command (weight = last + 10, images through
+  `prepare-images.sh`, center-cropped `feature.jpg`); `images` appends to a gallery with the next free number; `cover` remakes the cover.
+- `scripts/check.sh`: pre-publish checklist (EN/PT pairs, summary/description, TODO, drafts, covers, EXIF/XMP/IPTC,
+  image size, production build, git status). Exit 1 on errors.
+- `docs/manual-conteudo.md` (PT-BR): routines for new project, new gallery, updates (e.g. Legal AI status), new hobby,
+  pre-publish checklist, snippets, common problems. `manual-galerias.md` now points to `new.sh`.
+- Real test of the routine: fixed the Cycling page (EN caption was in Portuguese, stray "s" line, "Sport3").
 
 ### 2026-10-30 (stage 11: Final review)
 - Mobile check at 390 px (iPhone size): no horizontal overflow on any page; About photo strip, timeline,

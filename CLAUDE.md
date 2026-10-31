@@ -36,11 +36,17 @@ This repo is **public**. Everything committed here, including `CLAUDE.md` and `d
 | `layouts/shortcodes/rz-*.html` | Custom shortcodes: `rz-photos`, `rz-gallery`, `rz-video`, `rz-feature`, `rz-contact-cards`, `rz-contact-card`, `rz-contact-form` (usage documented at the top of each file) |
 | `layouts/partials/rz-*.html` | Partials used by those shortcodes (`rz-photos-assets.html` = justified-rows layout script) |
 | `assets/css/custom.css` | Site-wide overrides: text uses the full content width on every page; contact page styles at the end |
+| `archetypes/` | Templates for `hugo new`: `projects/` (default for `content/projects/`), `gallery/` and `hobby/` (`--kind`). EN + PT with `TODO` placeholders |
+| `scripts/new.sh` | One-command content creation: `project`, `gallery`, `hobby`, `images` (append to a gallery), `cover` (make `feature.jpg`). Uses the archetypes, sets `weight` to last + 10, runs `prepare-images.sh` |
+| `scripts/check.sh` | Pre-publish checklist: EN/PT pairs, summary/description, leftover `TODO`, drafts, covers, image metadata and size, production build, git status. Exit 1 on errors; `--quick` skips the build |
 | `scripts/prepare-images.sh` | Renames, strips metadata and resizes images for the site |
-| `docs/` | Project notes, progress log and `manual-galerias.md` (gallery how-to, PT-BR); not rendered by Hugo |
+| `docs/` | Project notes, progress log, `manual-conteudo.md` (content routine, PT-BR) and `manual-galerias.md` (gallery how-to, PT-BR); not rendered by Hugo |
 
 ## Conventions
 
+- New content: `bash scripts/new.sh ...`; before every commit: `bash scripts/check.sh`. Routine in `docs/manual-conteudo.md`.
+  Archetypes use `TODO` placeholders on purpose: `check.sh` fails while any is left. Keep the archetypes in sync with
+  the conventions below when they change.
 - Every content page exists in both languages. When editing one, update the other.
 - Project pages start with a status badge (`{{< badge >}}In progress{{< /badge >}}`) and use front matter
   `title`, `summary`, `date`, `weight`, `tags`.
@@ -60,4 +66,6 @@ This repo is **public**. Everything committed here, including `CLAUDE.md` and `d
 git submodule update --init --recursive   # first clone on a new machine
 hugo server                                # preview at http://localhost:1313
 hugo --gc --minify                         # production build into public/ (ignored by git)
+bash scripts/new.sh project <slug> [images]  # new content (see docs/manual-conteudo.md)
+bash scripts/check.sh                      # pre-publish checklist
 ```

@@ -9,6 +9,18 @@ Como adicionar e atualizar galerias em **Hobbies → 3D por diversão** e **Hobb
 
 ## Resumo rápido (para quem já fez uma vez)
 
+**Jeito rápido (recomendado):** um comando cria a galeria nos dois idiomas, processa as fotos e gera a capa. A rotina completa está em [`manual-conteudo.md`](manual-conteudo.md).
+
+```bash
+cd ~/Projects/mr.rizzo
+bash scripts/new.sh gallery 3d-for-fun NOME ~/PASTA-ORIGEM
+# trocar os TODO em index.md e index.pt-br.md; destaques no photos.yaml
+bash scripts/check.sh
+git add content/hobbies/3d-for-fun/NOME && git commit -m "Add 3D hobby gallery: TÍTULO" && git push
+```
+
+**Jeito manual** (o mesmo, passo a passo, sem o script):
+
 ```bash
 cd ~/Projects/mr.rizzo
 cp -r content/hobbies/3d-for-fun/example-gallery content/hobbies/3d-for-fun/NOME
@@ -217,7 +229,7 @@ Antes do `git add`, leia o `git status` e confira se só aparece o que você que
 
 | Quero… | Como |
 |---|---|
-| Acrescentar fotos | Script com o número inicial (passo 2) |
+| Acrescentar fotos | `bash scripts/new.sh images <pasta da galeria> <pasta das fotos>` (descobre o próximo número sozinho), ou o script do passo 2 com o número inicial |
 | Mudar a ordem ou os destaques | Editar o `photos.yaml` |
 | Trocar uma foto | Apague `gallery/05.jpg` e coloque a nova com o mesmo nome. Rode o script numa pasta temporária e copie o arquivo para lá |
 | Esconder uma galeria sem apagar | Coloque `draft: true` nos dois `index` |
