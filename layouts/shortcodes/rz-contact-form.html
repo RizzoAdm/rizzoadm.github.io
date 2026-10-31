@@ -1,0 +1,73 @@
+{{- /*
+  rz-contact-form: contact form sent through Web3Forms (https://web3forms.com, free plan).
+
+  The access key comes from config/_default/params.toml -> web3formsAccessKey.
+  Web3Forms documents the key as safe to be public; it does not reveal the destination email.
+  After a successful send, the visitor is redirected to the "thanks" page of the current language
+  (content/thanks/). On the free plan the redirect must be on the same domain as the form, so it only
+  works on the published site, not on localhost.
+
+  Spam protection: hCaptcha (enable it in the Web3Forms dashboard too) + honeypot field.
+  The email subject is fixed in English in both languages so a single Gmail filter catches it.
+
+  Parameters (all optional, defaults in English):
+    name, email, message, send, note, captchaError
+*/ -}}
+{{- $key := site.Params.web3formsAccessKey -}}
+{{- if not $key -}}
+  {{- warnf "rz-contact-form: web3formsAccessKey is not set in params.toml (%s)" .Position -}}
+{{- end -}}
+{{- $thanks := "" -}}
+{{- with site.GetPage "/thanks" }}{{ $thanks = .Permalink }}{{ end -}}
+{{- $lang := site.Language.Lang -}}
+{{- $captchaLang := cond (hasPrefix $lang "pt") "pt" "en" -}}
+
+<form id="rz-contact-form" class="rz-contact-form not-prose" action="https://api.web3forms.com/submit" method="POST">
+  <input type="hidden" name="access_key" value="{{ $key }}">
+  <input type="hidden" name="subject" value="New message from rizzoadm.github.io">
+  <input type="hidden" name="from_name" value="rizzoadm.github.io">
+  <input type="hidden" name="site_language" value="{{ $lang }}">
+  {{- with $thanks }}
+  <input type="hidden" name="redirect" value="{{ . }}">
+  {{- end }}
+  <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off">
+
+  <label class="rz-contact-form__field">
+    <span>{{ .Get "name" | default "Name" }}</span>
+    <input type="text" name="name" required maxlength="100" autocomplete="name">
+  </label>
+
+  <label class="rz-contact-form__field">
+    <span>{{ .Get "email" | default "Email (so I can reply)" }}</span>
+    <input type="email" name="email" required maxlength="150" autocomplete="email">
+  </label>
+
+  <label class="rz-contact-form__field">
+    <span>{{ .Get "message" | default "Message" }}</span>
+    <textarea name="message" required rows="6" maxlength="5000"></textarea>
+  </label>
+
+  <div class="h-captcha" data-captcha="true" data-theme="dark" data-lang="{{ $captchaLang }}"></div>
+  <p class="rz-contact-form__error" role="alert" hidden>{{ .Get "captchaError" | default "Please complete the captcha before sending." }}</p>
+
+  <button type="submit" class="rz-contact-form__send">{{ .Get "send" | default "Send" }}</button>
+  <p class="rz-contact-form__note">{{ .Get "note" | default "Your email is only used to reply to this message." }}</p>
+</form>
+
+<script src="https://web3forms.com/client/script.js" async defer></script>
+<script>
+  (function () {
+    var form = document.getElementById("rz-contact-form");
+    if (!form) return;
+    var error = form.querySelector(".rz-contact-form__error");
+    form.addEventListener("submit", function (e) {
+      var captcha = form.querySelector("textarea[name=h-captcha-response]");
+      if (captcha && !captcha.value) {
+        e.preventDefault();
+        error.hidden = false;
+      } else {
+        error.hidden = true;
+      }
+    });
+  })();
+</script>

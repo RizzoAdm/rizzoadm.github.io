@@ -9,3 +9,146 @@ section.prose > div.max-w-fit { max-width: none; width: 100%; }
 
 /* List pages (Projects, Hobbies, Photography...): text above the cards */
 section.prose > div.max-w-prose { max-width: none !important; }
+
+/* ---------- Contact page (rz-contact-cards, rz-contact-card, rz-contact-form) ---------- */
+
+.rz-contact-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 2.5rem;
+}
+
+@media (max-width: 640px) {
+  .rz-contact-cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.rz-contact-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.1rem 1.2rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(var(--color-neutral-300), 1);
+  background: rgba(var(--color-neutral-100), 0.6);
+  color: rgba(var(--color-neutral-800), 1);
+  text-decoration: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.rz-contact-card:hover {
+  border-color: rgba(var(--color-primary-500), 1);
+}
+
+.rz-contact-card__icon {
+  font-size: 1.6rem;
+  color: rgba(var(--color-primary-600), 1);
+}
+
+.rz-contact-card__title {
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.rz-contact-card__text {
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: rgba(var(--color-neutral-600), 1);
+}
+
+.dark .rz-contact-card {
+  border-color: rgba(var(--color-neutral-700), 1);
+  background: rgba(var(--color-neutral-800), 0.6);
+  color: rgba(var(--color-neutral-100), 1);
+}
+
+.dark .rz-contact-card:hover {
+  border-color: rgba(var(--color-primary-400), 1);
+}
+
+.dark .rz-contact-card__icon {
+  color: rgba(var(--color-primary-400), 1);
+}
+
+.dark .rz-contact-card__text {
+  color: rgba(var(--color-neutral-400), 1);
+}
+
+.rz-contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 40rem;
+  margin-top: 1rem;
+}
+
+.rz-contact-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.95rem;
+  color: rgba(var(--color-neutral-700), 1);
+}
+
+.rz-contact-form input[type="text"],
+.rz-contact-form input[type="email"],
+.rz-contact-form textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(var(--color-neutral-300), 1);
+  background: rgba(var(--color-neutral-50), 1);
+  color: rgba(var(--color-neutral-900), 1);
+  font: inherit;
+}
+
+.rz-contact-form textarea {
+  resize: vertical;
+  min-height: 9rem;
+}
+
+.rz-contact-form input:focus,
+.rz-contact-form textarea:focus {
+  outline: 2px solid rgba(var(--color-primary-500), 1);
+  outline-offset: 1px;
+}
+
+.dark .rz-contact-form__field {
+  color: rgba(var(--color-neutral-300), 1);
+}
+
+.dark .rz-contact-form input[type="text"],
+.dark .rz-contact-form input[type="email"],
+.dark .rz-contact-form textarea {
+  border-color: rgba(var(--color-neutral-700), 1);
+  background: rgba(var(--color-neutral-800), 1);
+  color: rgba(var(--color-neutral-100), 1);
+}
+
+.rz-contact-form__send {
+  align-self: flex-start;
+  padding: 0.55rem 1.4rem;
+  border-radius: 0.5rem;
+  background: rgba(var(--color-primary-600), 1);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.rz-contact-form__send:hover {
+  background: rgba(var(--color-primary-500), 1);
+}
+
+.rz-contact-form__note {
+  font-size: 0.85rem;
+  color: rgba(var(--color-neutral-500), 1);
+  margin: 0;
+}
+
+.rz-contact-form__error {
+  font-size: 0.9rem;
+  color: #f87171;
+  margin: 0;
+}

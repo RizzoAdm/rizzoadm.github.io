@@ -1,0 +1,17 @@
+{{- /*
+  rz-contact-card: one clickable card. Use inside rz-contact-cards.
+
+  Parameters:
+    icon  : Blowfish icon name (themes/blowfish/assets/icons/<name>.svg), e.g. linkedin, github, envelope
+    title : card title
+    href  : link. External links (http...) open in a new tab; "#id" links scroll on the same page.
+  Inner text: short description (Markdown allowed).
+*/ -}}
+{{- $href := .Get "href" -}}
+{{- $external := hasPrefix $href "http" -}}
+<a class="rz-contact-card" href="{{ $href }}"
+  {{- if $external }} target="_blank" rel="noopener noreferrer"{{ end }}>
+  <span class="rz-contact-card__icon">{{ partial "icon.html" (.Get "icon") }}</span>
+  <span class="rz-contact-card__title">{{ .Get "title" }}</span>
+  <span class="rz-contact-card__text">{{ .Inner | strings.TrimSpace | markdownify }}</span>
+</a>

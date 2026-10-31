@@ -1,0 +1,15 @@
+{{- /*
+  rz-contact-cards: grid wrapper for rz-contact-card items (3 columns on desktop, 1 on mobile).
+
+  Usage:
+    {{< rz-contact-cards >}}
+      {{< rz-contact-card icon="linkedin" title="LinkedIn" href="https://..." >}}Short text{{< /rz-contact-card >}}
+      {{< rz-contact-card icon="github" title="GitHub" href="https://..." >}}Short text{{< /rz-contact-card >}}
+      {{< rz-contact-card icon="envelope" title="Message" href="#message" >}}Short text{{< /rz-contact-card >}}
+    {{< /rz-contact-cards >}}
+
+  Styles: assets/css/custom.css (section "Contact page").
+*/ -}}
+<div class="rz-contact-cards not-prose">
+  {{- .Inner -}}
+</div>
