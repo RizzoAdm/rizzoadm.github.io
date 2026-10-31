@@ -11,8 +11,8 @@ So, soon after I arrived, I bought a bike. A used, fairly basic one, but with a 
 
 Two years later, I decided to upgrade. This time a new bike, with the specs I wanted: lightweight, no suspension (which I was happy to skip, partly to save weight) and hydraulic disc brakes. The Trek Dual Sport 3 matched that combination exactly.
 
-{{< rz-photos files="03 04 05 06" caption="Minha Trek Dual Sport3">}}
-s
+{{< rz-photos files="03 04 05 06" caption="My Trek Dual Sport 3" >}}
+
 I handle all the maintenance myself: brake and derailleur adjustments, tires, installing accessories and whatever else comes up.
 
 My longest ride so far: from Calgary out to Chestermere, a loop around the town and back, about 60 km in total.

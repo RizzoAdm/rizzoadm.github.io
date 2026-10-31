@@ -11,7 +11,7 @@ Por isso, logo que cheguei, comprei uma bicicleta. Usada e relativamente simples
 
 Dois anos depois, resolvi comprar uma bicicleta melhor. Desta vez, uma nova e com as especificações que eu queria: leve, sem suspensão (que eu dispensava, até para economizar peso) e com freio a disco hidráulico. Encontrei na Trek Dual Sport 3 exatamente essa combinação.
 
-{{< rz-photos files="03 04 05 06" caption="Minha Trek Dual Sport3">}}
+{{< rz-photos files="03 04 05 06" caption="Minha Trek Dual Sport 3" >}}
 
 A manutenção fica toda por minha conta: regulagem de freios e câmbio, pneus, instalação de acessórios e o que mais aparecer.
 
