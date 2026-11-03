@@ -36,6 +36,16 @@ This file is public: keep it to work notes only (see privacy rules in `CLAUDE.md
 
 ## Session log
 
+### 2026-11-03 (Privacy Policy)
+- `content/privacy/` (EN/PT): privacy policy for the site (GitHub Pages hosting, no analytics/ads/tracking cookies,
+  browser storage, Web3Forms + hCaptcha, Vimeo dnt / YouTube nocookie embeds, EXIF removal) and for the owner's private
+  Google OAuth app used with rclone ("Arquivos pessoais e backups gerais": Drive data accessed, use, storage, no sharing,
+  Limited Use statement, how to revoke). Written to cover full Drive access (scope not decided yet).
+- Footer menu: "Privacy" / "Privacidade" after LinkedIn and GitHub (Google asks for a privacy link on the home page).
+  Not in the main menu.
+- URLs for the Google Cloud OAuth consent screen: home `https://rizzoadm.github.io/`, privacy
+  `https://rizzoadm.github.io/privacy/`, authorized domain `rizzoadm.github.io`. Keep the `/privacy/` path stable.
+
 ### 2026-10-31 (final stage: documentation and wrap-up)
 - `README.pt-br.md`: Portuguese version of the README; both READMEs link to each other at the top
   (`English | Português`) and now have a Documentation table.

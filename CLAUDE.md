@@ -32,6 +32,7 @@ This repo is **public**. Everything committed here, including `CLAUDE.md` and `d
 | `content/projects/<slug>/` | One folder per project, `feature.jpg` as cover, optional `gallery/01.jpg ...` |
 | `content/hobbies/` | Hobbies. `photography/`, `3d-for-fun/`, `cooking/` are sections (`_index.md`) with one gallery bundle per folder; `cycling/`, `homelab/`, `swimming/` are pages. `example-gallery/` folders are drafts used as templates |
 | `content/hobbies/<section>/<gallery>/photos.yaml` | Highlights (`highlight: "05:1 12:2"`) and optional `order:` list, shared by EN and PT |
+| `content/privacy/` | Privacy Policy (EN/PT), linked from the footer menu only (not the main menu). Also covers the owner's private Google OAuth app for rclone ("Arquivos pessoais e backups gerais"); its URL `https://rizzoadm.github.io/privacy/` is registered in Google Cloud, so do not move or rename it. Update the "Last updated" date in both files whenever the text changes |
 | `content/contact/`, `content/thanks/` | Contact page (cards + Web3Forms form) and the confirmation page shown after sending (`noindex`, not listed) |
 | `layouts/shortcodes/rz-*.html` | Custom shortcodes: `rz-photos`, `rz-gallery`, `rz-video`, `rz-feature`, `rz-contact-cards`, `rz-contact-card`, `rz-contact-form` (usage documented at the top of each file) |
 | `layouts/partials/rz-*.html` | Partials used by those shortcodes (`rz-photos-assets.html` = justified-rows layout script) |

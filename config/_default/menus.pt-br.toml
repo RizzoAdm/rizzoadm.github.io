@@ -43,3 +43,9 @@
   name = "GitHub"
   url = "https://github.com/RizzoAdm"
   weight = 20
+
+[[footer]]
+  identifier = "privacy"
+  name = "Privacidade"
+  pageRef = "privacy"
+  weight = 30
