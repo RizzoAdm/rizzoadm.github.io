@@ -29,6 +29,12 @@
   weight = 50
 
 [[main]]
+  identifier = "blog"
+  name = "Blog"
+  url = "/blog/pt-br/"
+  weight = 55
+
+[[main]]
   identifier = "contact"
   name = "Contato"
   pageRef = "contact"

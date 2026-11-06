@@ -15,11 +15,10 @@ This file is public: keep it to work notes only (see privacy rules in `CLAUDE.md
 - Stage 11 (final review) done: build has no warnings; SEO descriptions and share image in place.
 - Stage 12 (content routine) done: archetypes, `scripts/new.sh`, `scripts/check.sh`, `docs/manual-conteudo.md`.
 - **Project complete (2026-10-31):** README in PT-BR (`README.pt-br.md`), main manual (`docs/manual-site.md`), LinkedIn post drafted.
+- Main menu has a "Blog" link (between Hobbies and Contact) to the separate blog (repo `RizzoAdm/blog`).
 
 ## Next steps
 
-- [ ] Blog: will be hosted outside this site. When it exists, add only an external link to the menu
-      (`url` instead of `pageRef`) between Hobbies and Contact. Do not add `blog` back to `mainSections`
 - [ ] Cooking: add a gallery and remove the `build` block
 - [ ] Legal AI: update status and numbers when the project moves forward
 
@@ -35,6 +34,15 @@ This file is public: keep it to work notes only (see privacy rules in `CLAUDE.md
   ("New message from rizzoadm.github.io") so one mail filter catches it.
 
 ## Session log
+
+### 2026-11-06 (blog link in the menu)
+- `menus.en.toml` / `menus.pt-br.toml`: new `[[main]]` item `blog` (weight 55, between Hobbies and Contact) with
+  `url = "/blog/"` (EN) and `url = "/blog/pt-br/"` (PT). The blog is a separate Hugo + PaperMod site
+  (repo `RizzoAdm/blog`, published at https://rizzoadm.github.io/blog/).
+- Opens in the same tab on purpose: Blowfish adds `target="_blank"` only to menu URLs starting with `http(s):`,
+  so a root-relative URL keeps the visitor in the same tab. Do not change it to the full URL.
+- Under `hugo server` the link returns 404 (the blog is not in this folder); it works only on the live site.
+- Do not add `blog` back to `mainSections` and do not create `content/blog/` here (it would clash with the blog's path).
 
 ### 2026-11-03 (Privacy Policy)
 - `content/privacy/` (EN/PT): privacy policy for the site (GitHub Pages hosting, no analytics/ads/tracking cookies,
