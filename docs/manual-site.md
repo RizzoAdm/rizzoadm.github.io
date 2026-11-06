@@ -110,17 +110,21 @@ Os menus ficam em `config/_default/menus.en.toml` e `menus.pt-br.toml`. **Mude s
 - `weight`: ordem (menor vem primeiro). Use dezenas (10, 20, 30...) para sobrar espaço entre itens.
 - `pageRef`: página do próprio site (ex.: `"projects"`). `url`: link externo.
 
-**Link externo (ex.: o blog, entre Hobbies e Contact):**
+**Link para fora do site (ex.: o Blog, entre Hobbies e Contact):**
 
 ```toml
 [[main]]
   identifier = "blog"
   name = "Blog"
-  url = "https://ENDERECO-DO-BLOG"
+  url = "/blog/"          # em menus.pt-br.toml: "/blog/pt-br/"
   weight = 55
 ```
 
-Em `menus.pt-br.toml`, o mesmo bloco (o `name` pode continuar "Blog"). Com `weight = 55`, ele fica entre Hobbies (50) e Contact (60).
+Com `weight = 55`, ele fica entre Hobbies (50) e Contact (60). O blog é um site separado (repositório `RizzoAdm/blog`, Hugo + PaperMod), publicado em https://rizzoadm.github.io/blog/.
+
+**Mesma aba ou nova aba:** o Blowfish abre em **nova aba** todo `url` que começa com `http:` ou `https:`, e na **mesma aba** os que começam com `/`. O Blog usa `/blog/` de propósito, para abrir na mesma aba. No `hugo server` esse link dá 404 (o blog não está nesta pasta); no site publicado funciona.
+
+Não crie `content/blog/` neste site: o endereço `/blog/` já pertence ao outro repositório.
 
 **Tirar um item do menu sem apagar a página:** comente as linhas do bloco com `#` nos dois arquivos. A página continua existindo pelo endereço direto; para escondê-la de vez, veja a seção 8.
 

@@ -8,6 +8,8 @@ Source code for **Mr. Rizzo**'s personal website and professional portfolio, pub
 
 A static portfolio that extends my resume: professional experience, skills and selected projects (AI, legal AI, a financial spreadsheet, 3D modeling), plus photography and hobbies. Available in English and Portuguese.
 
+The main menu also links to my separate blog at [rizzoadm.github.io/blog](https://rizzoadm.github.io/blog/) (repository [RizzoAdm/blog](https://github.com/RizzoAdm/blog)).
+
 ## What this site is not
 
 - No personal email or phone number.

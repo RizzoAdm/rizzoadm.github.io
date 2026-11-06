@@ -8,6 +8,8 @@ Código-fonte do site pessoal e portfólio profissional de **Mr. Rizzo**, public
 
 Um portfólio estático que complementa o meu currículo: experiência profissional, habilidades e projetos selecionados (IA, IA jurídica, uma planilha financeira, modelagem 3D), além de fotografia e hobbies. Disponível em inglês e português.
 
+O menu principal também leva ao meu blog, que é um site separado: [rizzoadm.github.io/blog](https://rizzoadm.github.io/blog/) (repositório [RizzoAdm/blog](https://github.com/RizzoAdm/blog)).
+
 ## O que este site não é
 
 - Sem e-mail ou telefone pessoal.
